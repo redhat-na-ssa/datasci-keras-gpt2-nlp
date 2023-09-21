@@ -4,15 +4,18 @@
 set -e
 
 check_shell(){
-  [ "${SHELL}" = "/bin/bash" ] && return
-  echo "Please verify you are running this script in bash shell"
+  [[ "${0}" =~ "bash" ]] && return
+  echo "Please verify you are running in bash shell"
+  sleep 100
 }
+
 
 # check_tkn(){
 #   return
 # }
 
-check_shell
+
+#check_shell
 
 
 debug(){
