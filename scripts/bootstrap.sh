@@ -155,6 +155,7 @@ setup_operator_nvidia(){
 }
 
 setup_demo(){
+  setup_operator_devspaces
   setup_operator_nfd
   setup_operator_nvidia
 }
