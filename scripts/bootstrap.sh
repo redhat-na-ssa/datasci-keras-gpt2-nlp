@@ -1,123 +1,167 @@
 #!/bin/bash
-set -e
+# shellcheck disable=SC2015,SC1091
 
-check_shell(){
-  [ "${SHELL}" = "/bin/bash" ] && return
-  echo "Please verify you are running this script in bash shell"
+COMPLETION_PATH=scratch
+BIN_PATH=${COMPLETION_PATH}/bin
+SEALED_SECRETS_FOLDER=components/operators/sealed-secrets/operator/overlays/default
+SEALED_SECRETS_SECRET=bootstrap/base/sealed-secrets-secret.yaml
+
+debug(){
+echo "PWD:  $(pwd)"
+echo "PATH: ${PATH}"
 }
 
-check_shell
-
-# shellcheck source=/dev/null
-. "$(dirname "$0")/functions.sh"
-
-LANG=C
-SLEEP_SECONDS=8
-
-ARGO_NS="openshift-gitops"
-ARGO_CHANNEL="stable"
-ARGO_DEPLOY_STABLE=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-
-# manage args passed to script
-if [ "${1}" == "demo=enter_name_here" ]; then
-  export NON_INTERACTIVE=true
-  
-  bootstrap_dir=bootstrap/overlays/workshop-rhdp
-  ocp_control_nodes_not_schedulable
-  ocp_create_machineset_autoscale 0 30
-  ocp_scale_all_machineset 1
-fi
-
-wait_for_gitops(){
-  echo "Waiting for operator to start"
-  until oc get deployment gitops-operator-controller-manager -n openshift-operators >/dev/null 2>&1
-  do
-    sleep 1
-  done
-
-  echo "Waiting for openshift-gitops namespace to be created"
-  until oc get ns ${ARGO_NS} >/dev/null 2>&1
-  do
-    sleep 1
-  done
-
-  echo "Waiting for deployments to start"
-  until oc get deployment cluster -n ${ARGO_NS} >/dev/null 2>&1
-  do
-    sleep 1
-  done
-
-  echo "Waiting for all pods to be created"
-  for i in "${ARGO_DEPLOY_STABLE[@]}"
-  do
-    echo "Waiting for deployment $i"
-    oc rollout status deployment "$i" -n ${ARGO_NS} >/dev/null 2>&1
-  done
-
-  echo
-  echo "OpenShift GitOps successfully installed."
+# get functions
+get_functions(){
+  echo -e "functions:\n"
+  sed -n '/(){/ s/(){$//p' "$(dirname "$0")/$(basename "$0")"
 }
 
-install_gitops(){
-  echo
-  echo "Installing GitOps Operator."
-
-  # kustomize build components/operators/openshift-gitops-operator/operator/overlays/stable | oc apply -f -
-  oc apply -k "components/operators/openshift-gitops-operator/operator/overlays/${ARGO_CHANNEL}"
-
-  echo "Pause ${SLEEP_SECONDS} seconds for the creation of the gitops-operator..."
-  sleep ${SLEEP_SECONDS}
-
-  wait_for_gitops
-
+usage(){
+  echo "
+  usage: source scripts/funtions.sh
+  "
+  # get_functions
 }
 
-select_bootstrap_folder(){
-  PS3="Please select a bootstrap folder by number: "
-  
-  echo
-  select bootstrap_dir in bootstrap/overlays/*/
-  do
-      test -n "$bootstrap_dir" && break
-      echo ">>> Invalid Selection <<<";
-  done
-
-  bootstrap_cluster
-}
-
-bootstrap_cluster(){
-
-  if [ -n "$bootstrap_dir" ]; then
-    echo "Selected: ${bootstrap_dir}"
-  else
-    select_bootstrap_folder
+is_sourced() {
+  if [ -n "$ZSH_VERSION" ]; then
+      case $ZSH_EVAL_CONTEXT in *:file:*) return 0;; esac
+  else  # Add additional POSIX-compatible shell names here, if needed.
+      case ${0##*/} in dash|-dash|bash|-bash|ksh|-ksh|sh|-sh) return 0;; esac
   fi
-
-  # kustomize build "${bootstrap_dir}" | oc apply -f -
-  oc apply -k "${bootstrap_dir}"
-
-  wait_for_gitops
-  
-  # apply the cr you know and love
-  oc apply -k "components/operators/openshift-gitops-operator/instance/overlays/default"
-
-  echo
-  echo "GitOps has successfully deployed!  Check the status of the sync here:"
-
-  route=$(oc get route openshift-gitops-server -o jsonpath='{.spec.host}' -n ${ARGO_NS})
-
-  echo "https://${route}"
+  return 1  # NOT sourced.
 }
 
-# functions
-check_git_root
-setup_bin
-check_bin oc
-# check_bin kustomize
-# check_bin kubeseal
+setup_venv(){
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install -q -U pip
+
+  check_venv || usage
+}
+
+check_venv(){
+  # activate python venv
+  [ -d venv ] && . venv/bin/activate || setup_venv
+  [ -e requirements.txt ] && pip install -q -r requirements.txt
+}
+
+check_oc(){
+  echo "Are you on the right OCP cluster?"
+
+  oc whoami || exit 0
+  UUID=$(oc whoami --show-server | sed 's@https://@@; s@:.*@@; s@api.*-@@; s@[.].*$@@')
+  export UUID
+  oc status
+
+  echo "UUID: ${UUID}"
+  sleep 4
+}
+
+# check login
+check_oc_login(){
+  oc cluster-info | head -n1
+  oc whoami || exit 1
+  echo
+  sleep 3
+}
+
+wait_for_crd(){
+  CRD=${1}
+  until oc get crd "${CRD}" >/dev/null 2>&1
+    do sleep 1
+  done
+}
+
+aws_create_gpu_machineset(){
+  # https://aws.amazon.com/ec2/instance-types/g4
+  # single gpu: g4dn.{2,4,8,16}xlarge
+  # multi gpu: g4dn.12xlarge
+  # cheapest: g4ad.4xlarge
+  INSTANCE_TYPE=${1:-g4dn.4xlarge}
+  MACHINE_SET=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep worker | head -n1)
+
+  oc -n openshift-machine-api get "${MACHINE_SET}" -o yaml | \
+    sed '/machine/ s/-worker/-gpu/g
+      /name/ s/-worker/-gpu/g
+      s/instanceType.*/instanceType: '"${INSTANCE_TYPE}"'/
+      s/replicas.*/replicas: 0/' | \
+    oc apply -f -
+
+  MACHINE_SET_GPU=$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | grep gpu | head -n1)
+
+  oc -n openshift-machine-api \
+    patch ${MACHINE_SET_GPU} \
+    --type=merge --patch '{"spec":{"template":{"spec":{"metadata":{"labels":{"cluster-api/accelerator":"nvidia-gpu"}}}}}}'
+  
+    oc -n openshift-machine-api \
+    patch ${MACHINE_SET_GPU} \
+    --type=merge --patch '{"metadata":{"labels":{"cluster-api/accelerator":"nvidia-gpu"}}}'
+
+}
+
+ocp_create_machineset_autoscale(){
+  MACHINE_MIN=${1:-0}
+  MACHINE_MAX=${2:-4}
+  MACHINE_SETS=${3:-$(oc -n openshift-machine-api get machinesets.machine.openshift.io -o name | sed 's@.*/@@' )}
+
+  for set in ${MACHINE_SETS}
+  do
+cat << YAML | oc apply -f -
+apiVersion: "autoscaling.openshift.io/v1beta1"
+kind: "MachineAutoscaler"
+metadata:
+  name: "${set}"
+  namespace: "openshift-machine-api"
+spec:
+  minReplicas: ${MACHINE_MIN}
+  maxReplicas: ${MACHINE_MAX}
+  scaleTargetRef:
+    apiVersion: machine.openshift.io/v1beta1
+    kind: MachineSet
+    name: "${set}"
+YAML
+  done
+}
+
+setup_cluster_autoscaling(){
+  # setup cluster autoscaling
+  oc apply -k components/configs/autoscale/overlays/default
+
+  aws_create_gpu_machineset
+  ocp_create_machineset_autoscale
+}
+
+setup_operator_devspaces(){
+  # setup devspaces
+  oc apply -k components/operators/devspaces/operator/overlays/stable
+  wait_for_crd checlusters.org.eclipse.che
+  oc apply -k components/operators/devspaces/instance/overlays/default
+}
+
+setup_operator_nfd(){
+  # setup nfd operator
+  oc apply -k components/operators/nfd/operator/overlays/stable
+  wait_for_crd nodefeaturediscoveries.nfd.openshift.io
+  oc apply -k components/operators/nfd/instance/overlays/default
+}
+
+setup_operator_nvidia(){
+  # setup nvidia gpu operator
+  oc apply -k components/operators/gpu-operator-certified/operator/overlays/stable
+  wait_for_crd clusterpolicies.nvidia.com
+  oc apply -k components/operators/gpu-operator-certified/instance/overlays/default
+}
+
+setup_demo(){
+  setup_operator_nfd
+  setup_operator_nvidia
+}
+
+is_sourced && return 0
+
+check_oc
 check_oc_login
 
-# bootstrap
-sealed_secret_check
-install_gitops
-bootstrap_cluster
+setup_demo
