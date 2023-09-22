@@ -43,7 +43,6 @@ components:
   - name: venv
     volume:
       size: 1G
-    name: universal-developer-image
   # - attributes:
   #     controller.devfile.io/merge-contribution: false
   #     deployment/nvidia.com/gpu: '1'
