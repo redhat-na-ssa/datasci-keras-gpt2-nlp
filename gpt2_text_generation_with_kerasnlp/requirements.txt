@@ -11,6 +11,10 @@ python-dotenv>=0.5.1
 
 # keras gpt requirements
 jupyter
-jax
+# TODO jax https://github.com/google/jax#installation
+#jax[cpu]
+#jax[cuda12_pip]
+#jax[cuda11_pip]
 tensorflow
+tensorflow-text
 torch
