@@ -1,11 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
   name: demo-ocp-gpt2-kerasnlp
-#attributes:
-#  controller.devfile.io/devworkspace-config:
-#    name: devworkspace-config
-#    namespace: devspaces
-#  controller.devfile.io/storage-type: per-workspace
 projects:
   - name: demo-ocp-gpt2-kerasnlp
     git:
@@ -13,26 +8,27 @@ projects:
         origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git"
       checkoutFrom:
         revision: main
-#components:
-#  - attributes:
-#      container-overrides:
-#        resources:
-#          limits:
-#            nvidia.com/gpu: '1'
-#      controller.devfile.io/merge-contribution: true
-#  - container:
-#      image: quay.io/bkozdemb/gpu-devspaces
-#      memoryLimit: 2G
+components:
+  - container:
+      image: quay.io/bkozdemb/gpu-devspaces:latest
+      sourceMapping: /projects
+    name: universal-developer-image
+    attributes:
+      container-overrides:
+        resources:
+          limits:
+            nvidia.com/gpu: '1'
+      controller.devfile.io/merge-contribution: true
+      memoryLimit: 16G
 #      cpuLimit: 1000m
 #      mountSources: true
-#      sourceMapping: /projects
-#      volumeMounts:
-#        - name: venv
-#          path: /home/user/.venv
-#    name: python
-#  - name: venv
-#    volume:
-#      size: 1G
+      sourceMapping: /projects
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+  - name: venv
+    volume:
+      size: 1G
 #commands:
 #  - exec:
 #      commandLine: python -m venv .venv && . .venv/bin/activate && pip install pip -U && pip install -r requirements.txt
