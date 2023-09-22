@@ -23,7 +23,7 @@ from a terminal
 ```python
 # 1. login to your OCP cluster
 oc login
-WORKING_DIR='demo-ocp-gpt2-kerasnlp'
+WORKING_DIR='demo-ocp-gpt2-keras-nlp'
 
 # 2. create a working directory 
 mkdir $WORKING_DIR
