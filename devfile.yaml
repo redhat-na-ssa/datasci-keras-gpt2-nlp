@@ -2,33 +2,47 @@ schemaVersion: 2.1.0
 metadata:
   attributes:
     metadata-name-field: generateName
-    metadata-name-original-value: flyingthings
-  name: flyingthings
+    metadata-name-original-value: demo-ocp-gpt2-kerasnlp
+  name: demo-ocp-gpt2-kerasnlp
 attributes:
   controller.devfile.io/scc: container-build
   controller.devfile.io/storage-type: per-user
   dw.metadata.annotations:
     che.eclipse.org/devfile-source: |
       scm:
-        repo: github.com/redhat-na-ssa/flyingthings.git
+        repo: github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git
         fileName: devfile.yaml
       factory:
-        params: url=https://github.com/redhat-na-ssa/flyingthings.git
+        params: url=https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git
 projects:
   - git:
       remotes:
-        origin: https://github.com/redhat-na-ssa/flyingthings.git
-    name: flyingthings
+        origin: https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git
+      checkoutFrom:
+        revision: main
+    name: demo-ocp-gpt2-kerasnlp
 components:
   - attributes:
+      container-overrides:
+        resources:
+          limits:
+            nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
-      memoryLimit: 2Gi
+      memoryLimit: 16Gi
+#      deployment/nvidia.com/gpu: '1'
     container:
-      env:
-        - name: PATH
-          value: /home/user/.local/bin:/home/user/.java/current/bin:/home/user/node_modules/.bin/:/home/user/.npm-global/bin/:/opt/app-root/src/.npm-global/bin/:/usr/share/maven/bin:/bin:/usr/bin"
-      image: registry.redhat.io/devspaces/udi-rhel8:latest
+#      env:
+#        - name: PATH
+#          value: /home/user/.local/bin:/home/user/.java/current/bin:/home/user/node_modules/.bin/:/home/user/.npm-global/bin/:/opt/app-root/src/.npm-global/bin/:/usr/share/maven/bin:/bin:/usr/bin"
+      image: quay.io/bkozdemb/gpu-devspaces:latest
       sourceMapping: /projects
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+    name: python
+  - name: venv
+    volume:
+      size: 1G
     name: universal-developer-image
   # - attributes:
   #     controller.devfile.io/merge-contribution: false
@@ -52,13 +66,13 @@ components:
   #       - name: MODEL_BASE
   #         value: yolov8n.pt
   #       - name: DATASET_ZIP
-  #         value: flyingthings-yolo.zip
+  #         value: demo-ocp-gpt2-kerasnlp-yolo.zip
   #       - name: MODEL_WEIGHTS
-  #         value: flyingthings.pt
+  #         value: demo-ocp-gpt2-kerasnlp.pt
   #       - name: BUILD_VER
   #         value: '0.0'
   #       - name: MODEL_CLASSES
-  #         value: flyingthings.yaml
+  #         value: demo-ocp-gpt2-kerasnlp.yaml
   #       - name: SIMPLEVIS_DATA
   #         value: /opt/app-root/src/simplevis-data
   #       - name: BASEDIR
@@ -66,7 +80,7 @@ components:
   #       - name: MINIO_ENDPOINT
   #         value: http://minio:9000
   #       - name: MINIO_BUCKET
-  #         value: flyingthings
+  #         value: demo-ocp-gpt2-kerasnlp
   #       - name: MINIO_ACCESSKEY
   #         value: minioadmin
   #       - name: MINIO_SECRETKEY
