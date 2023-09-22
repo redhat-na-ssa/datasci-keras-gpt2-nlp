@@ -23,13 +23,19 @@ from a terminal
 ```python
 # 1. login to your OCP cluster
 oc login
+WORKING_DIR='demo-ocp-gpt2-kerasnlp'
 
 # 2. create a working directory 
-mkdir 'demo-ocp-gpt2-kerasnlp'
+mkdir $WORKING_DIR
 
 # 3. change into your working directory
+cd $WORKING_DIR
 
+# 4. git clone this repo 
+git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 
-# 4. git clone this repo git@github.com:redhat-na-ssa/demo-ai-gitops-catalog.git
-# 5. run the scripts/bootstrap.sh
+# 5. run the scripts/bootstrap.sh in bash
+bash
+./scripts/bootstrap.sh
+
 ```
