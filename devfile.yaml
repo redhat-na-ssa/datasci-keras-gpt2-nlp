@@ -21,7 +21,7 @@ components:
           limits:
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
-    container:
+  - container:
       image: quay.io/bkozdemb/gpu-devspaces
       memoryLimit: 2G
       cpuLimit: 1000m
