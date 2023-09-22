@@ -1,13 +1,14 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
-  name: demo-ocp-gpt2-kerasnlp
+  name: devspaces-gpu
 attributes:
   controller.devfile.io/devworkspace-config:
     name: devworkspace-config
     namespace: devspaces
-  controller.devfile.io/storage-type: per-user
+  controller.devfile.io/scc: container-build
+  controller.devfile.io/storage-type: per-workspace
 projects:
-  - name: demo-ocp-gpt2-kerasnlp
+  - name: devspaces-gpu
     git:
       remotes:
         origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git"
@@ -20,25 +21,10 @@ components:
           limits:
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
-  - container:
-      cpuLimit: '2'
-      cpuRequest: '1'
-      env:
-        - name: CHE_DASHBOARD_URL
-          value: https://devspaces.apps.cluster-pdnrp.pdnrp.sandbox935.opentlc.com
-        - name: CHE_PLUGIN_REGISTRY_URL
-          value: https://devspaces.apps.cluster-pdnrp.pdnrp.sandbox935.opentlc.com/plugin-registry/v3
-        - name: CHE_PLUGIN_REGISTRY_INTERNAL_URL
-          value: http://plugin-registry.devspaces.svc:8080/v3
-        - name: CLUSTER_CONSOLE_URL
-          value: https://console-openshift-console.apps.cluster-pdnrp.pdnrp.sandbox935.opentlc.com
-        - name: CLUSTER_CONSOLE_TITLE
-          value: OpenShift console
-        - name: OPENVSX_REGISTRY_URL
-          value: ''
+    container:
       image: quay.io/bkozdemb/gpu-devspaces
-      memoryLimit: 8Gi
-      memoryRequest: 1Gi
+      memoryLimit: 2G
+      cpuLimit: 1000m
       mountSources: true
       sourceMapping: /projects
       volumeMounts:
@@ -50,10 +36,10 @@ components:
       size: 1G
 commands:
   - exec:
-      commandLine: python -m venv .venv && . .venv/bin/activate && && pip install pip -U && pip install -r requirements.txt
+      commandLine: python -m venv .venv && . .venv/bin/activate && pip install pip -U && pip install -r requirements.txt
       component: python
       group:
         kind: run
-      label: Run the application
-      workingDir: ${PROJECTS_ROOT}/python-hello-world
+      label: Configure python
+      workingDir: ${PROJECTS_ROOT}/devspaces-gpu
     id: run
