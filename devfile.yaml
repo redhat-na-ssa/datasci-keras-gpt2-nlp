@@ -1,14 +1,13 @@
 schemaVersion: 2.2.0
 metadata:
-  name: devspaces-gpu
+  name: demo-ocp-gpt2-kerasnlp
 attributes:
   controller.devfile.io/devworkspace-config:
     name: devworkspace-config
     namespace: devspaces
-  controller.devfile.io/scc: container-build
   controller.devfile.io/storage-type: per-workspace
 projects:
-  - name: devspaces-gpu
+  - name: demo-ocp-gpt2-kerasnlp
     git:
       remotes:
         origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git"
