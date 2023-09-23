@@ -1,9 +1,5 @@
 #!/bin/bash
 # shellcheck disable=SC2015,SC1091,SC2119,SC2120
-
-set -e
-
-#!/bin/bash
 set -e
 
 check_shell(){
