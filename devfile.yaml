@@ -5,7 +5,7 @@ projects:
   - name: demo-ocp-gpt2-kerasnlp
     git:
       remotes:
-        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-kerasnlp.git"
+        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git"
       checkoutFrom:
         revision: main
 components:
