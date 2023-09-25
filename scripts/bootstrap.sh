@@ -232,6 +232,10 @@ setup_demo(){
   setup_operator_nvidia
   setup_dashboard_nvidia_monitor
   setup_dashboard_nvidia_admin
+
+  setup_operator_devspaces
+  setup_operator_pipelines
+  
   usage
 }
 
