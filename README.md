@@ -27,15 +27,18 @@ mkdir $WORKING_DIR
 cd $WORKING_DIR
 
 # Step 2) Clone the git repo into your working directory
+
 git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 
 # Step 3) Login to your cluster and monitor the events
+
 oc login
 ```
 
 ## Kickoff Installation
 ```
 # Step 1) run the scripts/bootstrap.sh in bash
+
 bash
 ./scripts/bootstrap.sh
 ```
