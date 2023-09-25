@@ -194,7 +194,7 @@ setup_operator_nvidia(){
   # setup nvidia gpu operator
   oc apply -k components/operators/gpu-operator-certified/operator/overlays/stable
   wait_for_crd clusterpolicies.nvidia.com
-  oc apply -k components/operators/gpu-operator-certified/instance/overlays/default
+  oc apply -k components/operators/gpu-operator-certified/instance/overlays/time-slicing
 }
 
 setup_operator_pipelines(){
@@ -233,6 +233,7 @@ setup_demo(){
   setup_dashboard_nvidia_monitor
   setup_dashboard_nvidia_admin
 
+  setup_namespaces
   setup_operator_devspaces
   setup_operator_pipelines
   
