@@ -20,17 +20,17 @@ Key concepts:
 from a terminal
 
 ```bash
-# Step 1) create a local working directory
+# create a local working directory
 
 WORKING_DIR=local_working_dir
 mkdir $WORKING_DIR
 cd $WORKING_DIR
 
-# Step 2) Clone the git repo into your working directory
+# clone the git repo into your working directory
 
 git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 
-# Step 3) Login to your cluster and monitor the events
+# login to your cluster and monitor the events
 
 oc login
 ```
