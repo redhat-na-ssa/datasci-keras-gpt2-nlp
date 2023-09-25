@@ -15,15 +15,14 @@ Key concepts:
 - NVIDIA GPU Monitoring
 - Online experimentation
 
-## Get Started
+## Local Setup
 
 from a terminal
-
 
 ```python
 # 1. login to your OCP cluster
 oc login
-WORKING_DIR='demo-ocp-gpt2-keras-nlp'
+WORKING_DIR='local_working_dir'
 
 # 2. create a working directory 
 mkdir $WORKING_DIR
@@ -34,8 +33,13 @@ cd $WORKING_DIR
 # 4. git clone this repo 
 git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 
-# 5. run the scripts/bootstrap.sh in bash
+# 5. login to your OCP cluster (you may need a ca.crt file to avoid error)
+oc login
+```
+
+## Kickoff Installation
+# 1. run the scripts/bootstrap.sh in bash
+```
 bash
 ./scripts/bootstrap.sh
-
 ```
