@@ -37,7 +37,7 @@ oc login
 
 ## Kickoff Installation
 ```bash
-# Step 1) run the scripts/bootstrap.sh in bash
+# run the scripts/bootstrap.sh in bash
 
 bash
 ./scripts/bootstrap.sh
