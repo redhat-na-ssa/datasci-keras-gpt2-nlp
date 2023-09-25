@@ -20,26 +20,22 @@ Key concepts:
 from a terminal
 
 ```python
-# 1. login to your OCP cluster
-oc login
-WORKING_DIR='local_working_dir'
+# Step 1) create a local working directory
 
-# 2. create a working directory 
+WORKING_DIR=local_working_dir
 mkdir $WORKING_DIR
-
-# 3. change into your working directory
 cd $WORKING_DIR
 
-# 4. git clone this repo 
+# Step 2) Clone the git repo into your working directory
 git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 
-# 5. login to your OCP cluster (you may need a ca.crt file to avoid error)
+# Step 3) Login to your cluster and monitor the events
 oc login
 ```
 
 ## Kickoff Installation
 ```
-# 1. run the scripts/bootstrap.sh in bash
+# Step 1) run the scripts/bootstrap.sh in bash
 bash
 ./scripts/bootstrap.sh
 ```
