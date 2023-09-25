@@ -19,7 +19,7 @@ Key concepts:
 
 from a terminal
 
-```python
+```bash
 # Step 1) create a local working directory
 
 WORKING_DIR=local_working_dir
@@ -36,7 +36,7 @@ oc login
 ```
 
 ## Kickoff Installation
-```
+```bash
 # Step 1) run the scripts/bootstrap.sh in bash
 
 bash
