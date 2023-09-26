@@ -39,4 +39,4 @@ spec:
   - name: latest
     from:
       kind: ImageStreamTag
-      name: udi-cuda:kludge
+      name: udi-cuda:python

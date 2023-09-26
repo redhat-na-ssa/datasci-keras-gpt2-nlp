@@ -21,13 +21,12 @@ spec:
 
       WORKDIR /projects
 
-      ENTRYPOINT ['/entrypoint.sh']
-      CMD ['tail', '-f', '/dev/null']
+      # ENTRYPOINT ['sleep', 'infinity']
   strategy:
     dockerStrategy:
       from:
         kind: DockerImage
-        name: quay.io/opendatahub/workbench-images:cuda-jupyter-tensorflow-ubi9-python-3.9-pr-222
+        name: quay.io/opendatahub/workbench-images:runtime-cuda-tensorflow-ubi8-python-3.8
     type: Docker
   triggers:
   - imageChange: {}
