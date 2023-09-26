@@ -8,4 +8,4 @@ commonLabels:
 
 resources:
 - namespace.yaml
-- deployment.yaml
+#- deployment.yaml

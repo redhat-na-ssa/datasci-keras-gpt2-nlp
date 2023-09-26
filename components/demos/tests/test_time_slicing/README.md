@@ -16,6 +16,7 @@ oc logs deploy/time-slicing-verification
 
 # delete the kustomize
 oc delete -k test_timeslicing
+
 ```
 
 ## Manual Steps
