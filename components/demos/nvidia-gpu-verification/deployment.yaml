@@ -5,7 +5,7 @@ metadata:
   labels:
     app: time-slicing-verification
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: time-slicing-verification
@@ -18,7 +18,7 @@ spec:
         - key: nvidia.com/gpu
           operator: Exists
           effect: NoSchedule
-      hostPID: true
+      #hostPID: true  # comment out or will violate OCP scc
       containers:
         - name: cuda-sample-vector-add
           image: "nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04"
