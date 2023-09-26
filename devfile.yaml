@@ -10,8 +10,9 @@ projects:
         revision: main
 components:
   - container:
-      image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:latest
+      # image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:latest
       # image: quay.io/bkozdemb/gpu-devspaces:latest
+      image: quay.io/opendatahub/workbench-images:cuda-jupyter-tensorflow-ubi9-python-3.9-pr-222
       sourceMapping: /projects
     name: universal-developer-image
     attributes:
