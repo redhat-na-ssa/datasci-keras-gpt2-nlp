@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: time-slicing-verification
+
+commonLabels:
+  component: time-slicing-verification
+
+resources:
+- namespace.yaml
+- deployment.yaml
