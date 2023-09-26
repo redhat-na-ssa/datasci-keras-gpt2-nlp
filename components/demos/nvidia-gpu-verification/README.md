@@ -1,8 +1,8 @@
 # Verifying the GPU Time-Slicing Configuration
 
-Per the NVIDIA docs to [Verify the GPU time-slicing configuration](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html#verifying-the-gpu-time-slicing-configuration)
+tldr; Can I run a pod on an NVIDIA GPU? 
 
-see Deploy a workload to validate GPU time-slicing:
+Per the NVIDIA docs to [Verify the GPU time-slicing configuration](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html#verifying-the-gpu-time-slicing-configuration)
 
 ## Automated Steps
 
@@ -42,7 +42,7 @@ spec:
         - key: nvidia.com/gpu
           operator: Exists
           effect: NoSchedule
-      hostPID: true
+      # hostPID: true # must be commented out or will fail
       containers:
         - name: cuda-sample-vector-add
           image: "nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04"

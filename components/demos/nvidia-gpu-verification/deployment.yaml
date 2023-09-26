@@ -1,24 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: time-slicing-verification
-  labels:
-    app: time-slicing-verification
+  name: nvidia-vector-add
 spec:
-  replicas: 10
+  replicas: 1
   selector:
     matchLabels:
-      app: time-slicing-verification
+      app: nvidia-vector-add
   template:
     metadata:
       labels:
-        app: time-slicing-verification
+        app: nvidia-vector-add
     spec:
-      tolerations:
-        - key: nvidia.com/gpu
-          operator: Exists
-          effect: NoSchedule
-      #hostPID: true  # comment out or will violate OCP scc
+#      tolerations:
+#        - key: nvidia.com/gpu
+#          operator: Exists
+#          effect: NoSchedule
       containers:
         - name: cuda-sample-vector-add
           image: "nvcr.io/nvidia/k8s/cuda-sample:vectoradd-cuda11.7.1-ubuntu20.04"
