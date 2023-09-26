@@ -20,8 +20,8 @@ components:
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
       memoryLimit: 16G
-#      cpuLimit: 1000m
-#      mountSources: true
+      # cpuLimit: 1000m
+      mountSources: true
       sourceMapping: /projects
       volumeMounts:
         - name: venv
