@@ -27,7 +27,7 @@ RUN dnf -y --setopt=tsflags=nodocs update && \
 #
 # BK - install python
 #
-RUN yum install -y python38 python311
+RUN yum install -y python39 python311
 RUN alternatives --set python /usr/bin/python3.11
 
 USER 1001

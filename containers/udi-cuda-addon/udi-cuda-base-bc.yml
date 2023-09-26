@@ -1,0 +1,47 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: udi-cuda
+    app.kubernetes.io/component: udi-cuda
+    app.kubernetes.io/instance: udi-cuda
+  name: udi-cuda
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      openshift.io/imported-from: quay.io/devfile/base-developer-image:ubi8-latest
+    from:
+      kind: DockerImage
+      name: quay.io/devfile/base-developer-image:ubi8-latest
+    importPolicy: {}
+    name: dev-image
+    referencePolicy:
+      type: Source
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: udi-cuda-addon
+spec:
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git'
+    contextDir: /containers/udi-cuda-addon
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+      from:
+        kind: ImageStreamTag
+        name: 'udi-cuda:dev-image'
+  output:
+    to:
+      kind: ImageStreamTag
+      name: udi-cuda:python
+  triggers:
+    - type: ImageChange
+    - type: ConfigChange
