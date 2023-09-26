@@ -129,4 +129,4 @@ ENV XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/local/cuda
 
 # Restore notebook user workspace
 USER 1001
-WORKDIR /opt/app-root/src
+WORKDIR /projects
