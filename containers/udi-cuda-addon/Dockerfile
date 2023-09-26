@@ -19,7 +19,7 @@ WORKDIR /opt/app-root/bin
 # install python
 RUN yum install -y python39 && \
     alternatives --set python /usr/bin/python3.9 && \
-    alternatives --set pip /usr/bin/pip3.9 && \
+    ln -s /usr/bin/pip3.9 /usr/bin/pip && \
     yum clean all && \
     rm -rf /var/cache/yum/*
 
