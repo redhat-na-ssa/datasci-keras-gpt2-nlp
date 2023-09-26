@@ -10,7 +10,7 @@ projects:
         revision: main
 components:
   - container:
-      image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:addon
+      image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:latest
       # image: quay.io/bkozdemb/gpu-devspaces:latest
       sourceMapping: /projects
     name: universal-developer-image
