@@ -17,9 +17,10 @@ components:
       container-overrides:
         resources:
           limits:
+            memory: 16Gi
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
-      memoryLimit: 16G
+      # memoryLimit: 16Gi
       # cpuLimit: 1000m
       mountSources: true
       sourceMapping: /projects
