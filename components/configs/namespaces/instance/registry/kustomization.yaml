@@ -8,6 +8,6 @@ resources:
   - rolebinding-edit.yaml
   - rolebinding-puller.yaml
   - rolebinding-pusher.yaml
-  - rolebinding-read-only.yaml
+  - rolebinding-viewer.yaml
   - sa-puller.yaml
   - sa-pusher.yaml
