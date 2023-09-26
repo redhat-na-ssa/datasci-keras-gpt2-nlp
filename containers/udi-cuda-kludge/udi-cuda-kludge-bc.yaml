@@ -19,7 +19,10 @@ spec:
     dockerfile: |
       FROM scratch
 
-      ENTRYPOINT ['/bin/bash']
+      WORKDIR /projects
+
+      ENTRYPOINT ['/entrypoint.sh']
+      CMD ['tail', '-f', '/dev/null']
   strategy:
     dockerStrategy:
       from:
