@@ -50,7 +50,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: udi-cuda:python
+      name: udi-cuda:addon
   triggers:
     - type: ImageChange
     - type: ConfigChange
