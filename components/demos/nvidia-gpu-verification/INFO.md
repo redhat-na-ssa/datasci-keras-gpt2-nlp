@@ -19,7 +19,10 @@ oc delete -k test_timeslicing
 
 ```
 
-## Manual Steps
+## Manual Steps originally from NVIDIA 
+
+This is refactored into Kustomization for best practices.
+
 Create a file, such as time-slicing-verification.yaml, with contents like the following:
 ```yaml
 apiVersion: apps/v1
