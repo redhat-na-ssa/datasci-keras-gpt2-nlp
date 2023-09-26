@@ -3,5 +3,6 @@ jupyter
 tensorflow
 tensorflow-text
 tensorflow-datasets
+nvidia-cudnn-cu11
 #jax
 #torch
