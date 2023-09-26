@@ -19,7 +19,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: udi-cuda-addon
+      name: udi-cuda:addon
   triggers:
     - type: ImageChange
     - type: ConfigChange
