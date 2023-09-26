@@ -233,10 +233,11 @@ setup_demo(){
   setup_dashboard_nvidia_monitor
   setup_dashboard_nvidia_admin
 
-  setup_namespaces
   setup_operator_devspaces
   setup_operator_pipelines
-  
+
+  setup_namespaces
+
   usage
 }
 
