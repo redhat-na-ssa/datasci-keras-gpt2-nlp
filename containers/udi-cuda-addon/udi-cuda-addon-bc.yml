@@ -12,6 +12,15 @@ spec:
     local: false
   tags:
   - annotations:
+      openshift.io/imported-from: docker.io/nvidia/cuda:11.8.0-runtime-ubi8
+    from:
+      kind: DockerImage
+      name: docker.io/nvidia/cuda:11.8.0-runtime-ubi8
+    importPolicy: {}
+    name: 11.8.0-cuda
+    referencePolicy:
+      type: Source
+  - annotations:
       openshift.io/imported-from: quay.io/devfile/base-developer-image:ubi8-latest
     from:
       kind: DockerImage
