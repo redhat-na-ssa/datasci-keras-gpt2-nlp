@@ -10,14 +10,14 @@ projects:
         revision: main
 components:
   - container:
-      image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:python
+      image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:base
       sourceMapping: /projects
     name: universal-developer-image
     attributes:
       container-overrides:
         resources:
           limits:
-            memory: 16Gi
+            memory: 6Gi
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
       # memoryLimit: 16Gi
