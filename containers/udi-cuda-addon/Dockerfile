@@ -6,19 +6,19 @@ LABEL name="udi-cuda-python-3.9" \
       description="CUDA Python 3.9 builder image for UDI" \
       io.k8s.display-name="CUDA Python 3.9 base image for UDI" \
       io.k8s.description="CUDA Python 3.9 builder image for UDI" \
-      authoritative-source-url="https://github.com/opendatahub-io/notebooks" \
+      authoritative-source-url="https://github.com/redhat-na-ssa/demo-ocp-gpu" \
       io.openshift.build.commit.ref="main" \
-      io.openshift.build.source-location="https://github.com/opendatahub-io/notebooks/tree/main/cuda/c9s-python-3.9" \
-      io.openshift.build.image="quay.io/opendatahub/workbench-images:cuda-c9s-python-3.9"
+      io.openshift.build.source-location="https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main/udi-cuda-addon" \
+      io.openshift.build.image="ghcr.io/redhat-na-ssa/udi-cuda:latest"
 
 
 # Install CUDA base from:
 # https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.4.2/ubi8/base/Dockerfile
 USER 0
-WORKDIR /opt/app-root/bin
+WORKDIR /usr/local/bin
 
 # install python
-RUN yum install -y python39 && \
+RUN yum install -y libGL python39 bash-completion && \
     alternatives --set python /usr/bin/python3.9 && \
     ln -s /usr/bin/pip3.9 /usr/bin/pip && \
     yum clean all && \
@@ -112,7 +112,7 @@ ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
 # Install CUDA devel cudnn8 from:
 # https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.4.2/ubi8/devel/cudnn8/Dockerfile
-ENV NV_CUDNN_VERSION 8.2.4.15-1
+ENV NV_CUDNN_VERSION 8.6.0
 ENV NV_CUDNN_PACKAGE libcudnn8-${NV_CUDNN_VERSION}.cuda11.4
 ENV NV_CUDNN_PACKAGE_DEV libcudnn8-devel-${NV_CUDNN_VERSION}.cuda11.4
 
@@ -125,6 +125,19 @@ RUN yum install -y \
     && rm -rf /var/cache/yum/*
 
 ENV XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/local/cuda
+
+# install: oc,tkn
+ARG OC4_URL="https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz"
+ARG TKN_URL="https://mirror.openshift.com/pub/openshift-v4/clients/pipeline/latest/tkn-linux-amd64.tar.gz"
+
+RUN curl -sL "${OC4_URL}" | \
+      tar -C /usr/local/bin -vzxf- oc kubectl && \
+      /usr/local/bin/oc completion bash > /etc/bash_completion.d/oc && \
+      echo "source /etc/bash_completion.d/oc" >> /home/user/.bashrc && \
+    curl -sL "${TKN_URL}" | \
+      tar -C /usr/local/bin -vzxf- tkn && \
+      /usr/local/bin/tkn completion bash > /etc/bash_completion.d/tkn && \
+      echo "source /etc/bash_completion.d/tkn" >> /home/user/.bashrc
 
 # Restore notebook user workspace
 USER 1001
