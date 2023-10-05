@@ -80,3 +80,5 @@ Launch DevSpaces (from the `demo-ocp-gpt2-keras-nlp` repo)
 - Launch the science/notebooks
 
 
+# Resources
+[Configure Dev Spaces with Auth](https://eclipse.dev/che/docs/stable/end-user-guide/using-a-git-provider-access-token/)
