@@ -1,6 +1,5 @@
-ARG BASE_IMAGE=registry.access.redhat.com/ubi8/ubi:latest
-
-FROM base as base-amd64
+ARG BASE_IMAGE=quay.io/devfile/base-developer-image:ubi8-latest
+FROM ${BASE_IMAGE}
 
 LABEL name="udi-cuda-python-3.9" \
       summary="CUDA Python 3.9 base image for UDI" \
@@ -12,9 +11,8 @@ LABEL name="udi-cuda-python-3.9" \
       io.openshift.build.source-location="https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main/udi-cuda-addon" \
       io.openshift.build.image="ghcr.io/redhat-na-ssa/udi-cuda:latest"
 
-
 # Install CUDA base from:
-# https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.2.0/ubi8/base/Dockerfile
+# https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.4.2/ubi8/base/Dockerfile
 USER 0
 WORKDIR /usr/local/bin
 
@@ -31,12 +29,6 @@ ENV NV_CUDA_CUDART_VERSION 12.2.53-1
 
 COPY cuda.repo-x86_64 /etc/yum.repos.d/cuda.repo
 
-LABEL maintainer "NVIDIA CORPORATION <sw-cuda-installer@nvidia.com>"
-
-RUN NVIDIA_GPGKEY_SUM=d0664fbbdb8c32356d45de36c5984617217b2d0bef41b93ccecd326ba3b80c87 && \
-    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel8/${NVARCH}/D42D0685.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
-    echo "$NVIDIA_GPGKEY_SUM  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
-
 ENV CUDA_VERSION 12.2.0
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
@@ -46,7 +38,6 @@ RUN yum upgrade -y && yum install -y \
     && ln -s cuda-12.2 /usr/local/cuda \
     && yum clean all \
     && rm -rf /var/cache/yum/*
-
 
 # nvidia-docker 1.0
 RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
@@ -63,6 +54,7 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 # Install CUDA runtime from:
 # https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.2.0/ubi8/runtime/Dockerfile
+ENV NV_CUDA_LIB_VERSION 12.2.0-1
 ENV NV_NVTX_VERSION 12.2.53-1
 ENV NV_LIBNPP_VERSION 12.1.1.14-1
 ENV NV_LIBNPP_PACKAGE libnpp-12-2-${NV_LIBNPP_VERSION}
@@ -77,38 +69,6 @@ RUN yum install -y \
     libcublas-12-2-${NV_LIBCUBLAS_VERSION} \
     && yum clean all \
     && rm -rf /var/cache/yum/*
-
-# Install CUDA devel from:
-# https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/11.4.2/ubi8/devel/Dockerfile
-ENV NV_CUDA_LIB_VERSION 12.2.0-1
-ENV NV_NVPROF_VERSION 12.2.60-1
-ENV NV_NVPROF_DEV_PACKAGE cuda-nvprof-12-2-${NV_NVPROF_VERSION}
-ENV NV_CUDA_CUDART_DEV_VERSION 12.2.53-1
-ENV NV_NVML_DEV_VERSION 12.2.81-1
-ENV NV_LIBCUBLAS_DEV_VERSION 12.2.1.16-1
-ENV NV_LIBNPP_DEV_VERSION 12.1.1.14-1
-ENV NV_LIBNPP_DEV_PACKAGE libnpp-devel-12-2-${NV_LIBNPP_DEV_VERSION}
-ENV NV_CUDA_NSIGHT_COMPUTE_VERSION 12.2.0-1
-ENV NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE cuda-nsight-compute-12-2-${NV_CUDA_NSIGHT_COMPUTE_VERSION}
-
-LABEL maintainer "NVIDIA CORPORATION <sw-cuda-installer@nvidia.com>"
-
-RUN yum install -y \
-    make \
-    findutils \
-    cuda-command-line-tools-12-2-${NV_CUDA_LIB_VERSION} \
-    cuda-libraries-devel-12-2-${NV_CUDA_LIB_VERSION} \
-    cuda-minimal-build-12-2-${NV_CUDA_LIB_VERSION} \
-    cuda-cudart-devel-12-2-${NV_CUDA_CUDART_DEV_VERSION} \
-    ${NV_NVPROF_DEV_PACKAGE} \
-    cuda-nvml-devel-12-2-${NV_NVML_DEV_VERSION} \
-    libcublas-devel-12-2-${NV_LIBCUBLAS_DEV_VERSION} \
-    ${NV_LIBNPP_DEV_PACKAGE} \
-    ${NV_CUDA_NSIGHT_COMPUTE_DEV_PACKAGE} \
-    && yum clean all \
-    && rm -rf /var/cache/yum/*
-
-ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
 
 # Install CUDA devel cudnn8 from:
 # https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.2.0/ubi8/devel/Dockerfile
@@ -140,6 +100,11 @@ RUN yum install -y \
     && yum clean all \
     && rm -rf /var/cache/yum/*
 
+ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs
+
+# Install CUDA devel cudnn8 from:
+# no cudnn in 12.2.0 like in 11.4.3
+
 ENV XLA_FLAGS=--xla_gpu_cuda_data_dir=/usr/local/cuda
 
 # install: oc,tkn
@@ -158,3 +123,5 @@ RUN curl -sL "${OC4_URL}" | \
 # Restore notebook user workspace
 USER 1001
 WORKDIR /projects
+
+
