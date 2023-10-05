@@ -15,30 +15,44 @@ Key concepts:
 - NVIDIA GPU Monitoring
 - Online experimentation
 
-## Local Setup
+## Prerequisites
 
-from a terminal
+- Nvidia GPU hardware
+- OpenShift 4.11+ w/ cluster admin
+- AWS (auto scaling, optional)
+- OpenShift Dev Spaces 3.8.0+ (optional)
+- Internet access
+
+Red Hat Demo Platform Catalog (RHDP) options:
+
+- `MLOps Demo: Data Science & Edge Practice`
+- `Red Hat OpenShift Container Platform 4 Demo`
+
+## Dependencies
+
+1. Git clone and run the following commands from [demo-ocp-gpu](https://github.com/redhat-na-ssa/demo-ocp-gpu)
 
 ```bash
-# create a local working directory
-
-WORKING_DIR=local_working_dir
-mkdir $WORKING_DIR
-cd $WORKING_DIR
-
-# clone the git repo into your working directory
-
-git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
-
-# login to your cluster and monitor the events
-
-oc login
-```
-
-## Kickoff Installation
-```bash
-# run the scripts/bootstrap.sh in bash
-
+# run the commands in bash
 bash
+
+# quick installation
 ./scripts/bootstrap.sh
+
+# aws gpu - basic autoscaling
+. scripts/bootstrap.sh && ocp_aws_cluster_autoscaling
+
+# deploy devspaces
+. scripts/bootstrap.sh && setup_operator_devspaces
 ```
+
+## Quickstart
+
+1. Launch DevSpaces
+2. 
+
+```bash
+
+```
+
+
