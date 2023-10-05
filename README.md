@@ -15,24 +15,48 @@ Key concepts:
 - NVIDIA GPU Monitoring
 - Online experimentation
 
+Concepts:
+For IT Ops customizing a vanilla cluster with Kustomize/GitOps
+- add NFD and NVIDIA operators
+- add gpu node telsa t4
+- configure node selector for gpu pod placement
+- configure gpu autoscale
+Transition for DS
+- create project (call out isolation and quotas)
+- test pods against gpu node
+- scale up and down from 0
+    - single 1:1 Pod:GPU
+    - timeslice 6:4 Pods:GPUs
+    - talk to MIG a30/100
+- show GPU monitoring
+    - admin console
+    - developer/ds console
+    - nvidia-smi
+- different ways for DS to develop against OCP
+    - RH OCP IDE Toolkits
+    - RH OCP DevSpaces
+    - RH OCP AI RHODS
+- different ways for DS/ML Eng/App Dev to deploy models
+    - On-Cluster
+        - load model at runtime
+        - serverless function
+    - Off-Cluster/On-Device
+        - containerize
+
+
 ## Prerequisites
 
-- Nvidia GPU hardware
-- OpenShift 4.11+ w/ cluster admin
-- AWS (auto scaling, optional)
-- OpenShift Dev Spaces 3.8.0+ (optional)
-- Internet access
-
-Red Hat Demo Platform Catalog (RHDP) options:
-
-- `MLOps Demo: Data Science & Edge Practice`
-- `Red Hat OpenShift Container Platform 4 Demo`
-
-## Dependencies
-
-1. Git clone and run the following commands from [demo-ocp-gpu](https://github.com/redhat-na-ssa/demo-ocp-gpu)
+1. You configured your cluster with [demo-ocp-gpu](https://github.com/redhat-na-ssa/demo-ocp-gpu)
 
 ```bash
+# login to your cluster from Terminal
+
+# clone the demo-ocp-gpu repo dependecy
+git clone https://github.com/redhat-na-ssa/demo-ocp-gpu
+
+# change into demo-ocp-gpu folder
+cd demo-ocp-gpu
+
 # run the commands in bash
 bash
 
@@ -48,11 +72,11 @@ bash
 
 ## Quickstart
 
-1. Launch DevSpaces
-2. 
+Test NVIDIA Pods (from the `demo-ocp-gpu` repo)
+- Follow the [Various Commands](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main#various-commands) for GPUs
+- Execute the notebooks under the notebooks/ dir
 
-```bash
-
-```
+Launch DevSpaces (from the `demo-ocp-gpt2-keras-nlp` repo)
+- Launch the science/notebooks
 
 
