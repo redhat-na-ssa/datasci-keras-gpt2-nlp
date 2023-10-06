@@ -2,6 +2,12 @@ schemaVersion: 2.1.0
 metadata:
   name: demo-ocp-gpt2-keras-nlp
 projects:
+  - name: demo-ocp-gpu
+    git:
+      remotes:
+        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpu.git"
+      checkoutFrom:
+        revision: v0.90
   - name: demo-ocp-gpt2-keras-nlp
     git:
       remotes:
