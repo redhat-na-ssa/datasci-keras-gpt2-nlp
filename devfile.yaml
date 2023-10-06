@@ -2,18 +2,18 @@ schemaVersion: 2.1.0
 metadata:
   name: demo-ocp-gpt2-keras-nlp
 projects:
-  - name: demo-ocp-gpu
-    git:
-      remotes:
-        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpu.git"
-      checkoutFrom:
-        revision: v0.90
   - name: demo-ocp-gpt2-keras-nlp
     git:
       remotes:
         origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git"
       checkoutFrom:
         revision: main
+  - name: demo-ocp-gpu
+    git:
+      remotes:
+        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpu.git"
+      checkoutFrom:
+        revision: v0.92
 components:
   - container:
       # image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:latest
@@ -24,7 +24,7 @@ components:
       container-overrides:
         resources:
           limits:
-            memory: 6Gi
+            memory: 8Gi
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
       # memoryLimit: 16Gi
