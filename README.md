@@ -73,14 +73,14 @@ bash
 
 ## Quickstart
 
-Test NVIDIA Pods (from the `demo-ocp-gpu` repo)
+Test NVIDIA GPUs (from the `demo-ocp-gpu` repo)
 
 - Follow the [Various Commands](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main#various-commands) for GPUs
-- Execute the notebooks under the notebooks/ dir
+- Execute the notebooks under the [notebooks](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main/notebooks) dir
 
 Launch DevSpaces (from the `demo-ocp-gpt2-keras-nlp` repo)
 
-- Launch the science/notebooks
+- Launch the [science/notebooks](science/notebooks)
 
 ## Additional Resources
 
