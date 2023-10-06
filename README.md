@@ -75,8 +75,8 @@ bash
 
 Test NVIDIA GPUs (from the `demo-ocp-gpu` repo)
 
-- Follow the [Various Commands](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main#various-commands) for GPUs
-- Execute the notebooks under the [notebooks](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/main/notebooks) dir
+- Follow the [Various Commands](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/v0.90#various-commands) for GPUs
+- Execute the notebooks under the [notebooks](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/v0.90/notebooks) dir
 
 Launch DevSpaces (from the `demo-ocp-gpt2-keras-nlp` repo)
 
