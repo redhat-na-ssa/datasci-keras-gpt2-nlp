@@ -24,7 +24,7 @@ components:
       container-overrides:
         resources:
           limits:
-            memory: 8Gi
+            memory: 7Gi
             nvidia.com/gpu: '1'
       controller.devfile.io/merge-contribution: true
       # memoryLimit: 16Gi
