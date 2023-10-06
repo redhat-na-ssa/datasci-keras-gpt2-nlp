@@ -3,6 +3,8 @@ ARG BASE_IMAGE=quay.io/devfile/base-developer-image:ubi8-latest
 ARG TARGETARCH=amd64
 FROM ${BASE_IMAGE} as base
 
+USER 0
+
 FROM base as base-amd64
 
 ENV NVARCH x86_64
