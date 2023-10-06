@@ -42,3 +42,5 @@ COPY entrypoint.d/ /opt/nvidia/entrypoint.d/
 COPY nvidia_entrypoint.sh /opt/nvidia/
 ENV NVIDIA_PRODUCT_NAME="CUDA"
 ENTRYPOINT ["/opt/nvidia/nvidia_entrypoint.sh"]
+
+USER 1001
