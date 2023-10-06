@@ -1,4 +1,7 @@
-FROM registry.access.redhat.com/ubi8/ubi:latest as base
+# FROM registry.access.redhat.com/ubi8/ubi:latest as base
+ARG BASE_IMAGE=quay.io/devfile/base-developer-image:ubi8-latest
+ARG TARGETARCH=amd64
+FROM ${BASE_IMAGE}
 
 FROM base as base-amd64
 
@@ -8,21 +11,21 @@ ENV NV_CUDA_CUDART_VERSION 12.2.53-1
 
 COPY cuda.repo-x86_64 /etc/yum.repos.d/cuda.repo
 
-FROM base as base-arm64
+# FROM base as base-arm64
 
-ENV NVARCH sbsa
-ENV NVIDIA_REQUIRE_CUDA "cuda>=12.2"
-ENV NV_CUDA_CUDART_VERSION 12.2.53-1
+# ENV NVARCH sbsa
+# ENV NVIDIA_REQUIRE_CUDA "cuda>=12.2"
+# ENV NV_CUDA_CUDART_VERSION 12.2.53-1
 
-COPY cuda.repo-arm64 /etc/yum.repos.d/cuda.repo
+# COPY cuda.repo-arm64 /etc/yum.repos.d/cuda.repo
 
-FROM base as base-ppc64le
+# FROM base as base-ppc64le
 
-ENV NVARCH ppc64le
-ENV NVIDIA_REQUIRE_CUDA "cuda>=12.2"
-ENV NV_CUDA_CUDART_VERSION 12.2.53-1
+# ENV NVARCH ppc64le
+# ENV NVIDIA_REQUIRE_CUDA "cuda>=12.2"
+# ENV NV_CUDA_CUDART_VERSION 12.2.53-1
 
-COPY cuda.repo-ppc64le /etc/yum.repos.d/cuda.repo
+# COPY cuda.repo-ppc64le /etc/yum.repos.d/cuda.repo
 
 FROM base-${TARGETARCH}
 
