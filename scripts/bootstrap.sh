@@ -54,9 +54,8 @@ is_sourced() {
 }
 
 until_true(){
-  until "$@"
+  until "${@}"
   do
-    "$@"
     sleep 1
   done
 }
