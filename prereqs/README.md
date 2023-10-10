@@ -31,3 +31,6 @@ oc apply -k prereqs/02-autoscale
 oc apply -k prereqs/03-namespaces
 ```
 
+```
+oc apply -k prereqs/remote
+```
