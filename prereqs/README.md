@@ -7,6 +7,12 @@ If you get a `Warning` just reapply the command below.
 oc apply -k prereqs
 ```
 
+Alternative
+
+```
+oc apply -k prereqs/remote
+```
+
 # Manual Steps
 
 1. Install operators:
@@ -29,8 +35,4 @@ oc apply -k prereqs/02-autoscale
 
 # create the namespaces
 oc apply -k prereqs/03-namespaces
-```
-
-```
-oc apply -k prereqs/remote
 ```
