@@ -54,11 +54,16 @@ is_sourced() {
 }
 
 until_true(){
+  echo "Running:" "${@}"
   until "${@}"
   do
     sleep 1
+    echo "and again..."
   done
+
+  echo "[OK]"
 }
+
 
 ocp_check_login(){
   oc cluster-info | head -n1
