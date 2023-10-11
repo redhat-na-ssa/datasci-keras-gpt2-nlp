@@ -1,4 +1,4 @@
-# GPT2 Test Generation w/ KerasNLP on OpenShift
+# GPT2 Text Generation w/ KerasNLP on OpenShift
 
 This repo demos the use of the [GPT2 Test Generation w/ KerasNLP](https://keras.io/examples/generative/gpt2_text_generation_with_kerasnlp/)
 on OpenShift and NVIDIA.
