@@ -2,6 +2,8 @@
 # shellcheck disable=SC2015,SC1091,SC2119,SC2120
 set -e
 
+################# standard init #################
+
 check_shell(){
   [ -n "$BASH_VERSION" ] && return
   echo "Please verify you are running in bash shell"
@@ -29,20 +31,6 @@ check_shell
 check_git_root
 get_script_path
 
-################# standard init #################
-
-usage(){
-  echo "
-  Run the following to setup autoscaling in AWS:
-  
-  . scripts/bootstrap.sh && ocp_aws_cluster_autoscaling
-
-  Run the following to setup devspaces:
-
-  . scripts/bootstrap.sh && setup_operator_devspaces
-
-  "
-}
 
 is_sourced() {
   if [ -n "$ZSH_VERSION" ]; then
@@ -53,17 +41,7 @@ is_sourced() {
   return 1  # NOT sourced.
 }
 
-until_true(){
-  echo "Running:" "${@}"
-  until "${@}"
-  do
-    sleep 1
-    echo "and again..."
-  done
-
-  echo "[OK]"
-}
-
+################# misc fucntions ################
 
 ocp_check_login(){
   oc cluster-info | head -n1
@@ -85,6 +63,26 @@ k8s_wait_for_crd(){
   until kubectl get crd "${CRD}" >/dev/null 2>&1
     do sleep 1
   done
+}
+
+until_true(){
+  echo "Running:" "${@}"
+  until "${@}"
+  do
+    sleep 1
+    echo "and again..."
+  done
+
+  echo "[OK]"
+}
+
+local_argocd(){
+  if [ ! -f "${1}/kustomization.yaml" ]; then
+    echo "Please provide a dir with \"kustomization.yaml\""
+    return
+  fi
+
+  until_true oc apply -k "${1}"
 }
 
 ocp_control_nodes_not_schedulable(){
@@ -229,6 +227,7 @@ ocp_aws_cluster_autoscaling(){
 
 ################ macro functions ################
 
+
 setup_operator_devspaces(){
   # setup devspaces operator
   oc apply -k components/operators/devspaces/operator/overlays/stable
@@ -281,6 +280,15 @@ check_cluster_version(){
 }
 
 ################ demo functions ################
+
+
+usage(){
+  echo "
+    You can run individual functions with:
+    . scripts/bootstrap.sh
+  "
+}
+
 
 setup_demo(){
   check_cluster_version
