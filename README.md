@@ -1,7 +1,9 @@
 # GPT2 Text Generation w/ KerasNLP on OpenShift
 
 This repo demos the use of the [GPT2 Text Generation w/ KerasNLP](https://keras.io/examples/generative/gpt2_text_generation_with_kerasnlp/)
-on OpenShift and NVIDIA.
+on Red Hat OpenShift with NVIDIA GPUs.
+
+![GPT2 Text Generation Concept Diagram](<science/docs/GPT2 Text Generation with KerasNLP.png>)
 
 Key concepts:
 
@@ -15,35 +17,6 @@ Key concepts:
 - NVIDIA Time Slicing GPUs
 - NVIDIA GPU Monitoring
 - Online experimentation
-
-Concepts:
-For IT Ops customizing a vanilla cluster with Kustomize/GitOps
-
-- add NFD and NVIDIA operators
-- add gpu node telsa t4
-- configure node selector for gpu pod placement
-- configure gpu autoscale
-Transition for DS
-- create project (call out isolation and quotas)
-- test pods against gpu node
-- scale up and down from 0
-  - single 1:1 Pod:GPU
-  - timeslice 6:4 Pods:GPUs
-  - talk to MIG a30/100
-- show GPU monitoring
-  - admin console
-  - developer/ds console
-  - nvidia-smi
-- different ways for DS to develop against OCP
-  - RH OCP IDE Toolkits
-  - RH OCP DevSpaces
-  - RH OCP AI RHODS
-- different ways for DS/ML Eng/App Dev to deploy models
-  - On-Cluster
-    - load model at runtime
-    - serverless function
-  - Off-Cluster/On-Device
-    - containerize
 
 ## Prerequisites
 
