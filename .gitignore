@@ -1,5 +1,6 @@
 # custom excludes
 scratch/
+models/
 dcgm-exporter-dashboard.json
 
 # Byte-compiled / optimized / DLL files
