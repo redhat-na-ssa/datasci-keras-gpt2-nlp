@@ -45,9 +45,8 @@ go to your console and launch the web terminal (from the web terminal operator)
 $ cd gitops
 $ run get_functions
 $ run scripts/bootstrap
-
-# apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
-# apply_firmly components/configs/kustomized/minio
+$ apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
+$ apply_firmly components/configs/kustomized/minio
 ```
 
 ## Installation Verification
