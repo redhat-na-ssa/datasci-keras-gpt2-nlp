@@ -70,11 +70,6 @@ Something to checkout
 
 - Launch the [science/notebooks](science/notebooks)
 
-## Test NVIDIA GPUs (from the `demo-ocp-gpu` repo)
-
-- Follow the [Various Commands](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/v0.90#various-commands) for GPUs
-- Execute the notebooks under the [notebooks](https://github.com/redhat-na-ssa/demo-ocp-gpu/tree/v0.90/notebooks) dir
-
 ## Additional Resources
 
 [Configure Dev Spaces with Auth](https://eclipse.dev/che/docs/stable/end-user-guide/using-a-git-provider-access-token/)
