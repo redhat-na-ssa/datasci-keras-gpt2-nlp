@@ -2,5 +2,5 @@
 tensorflow~=2.13.1
 tensorflow_datasets==4.9.*
 keras-nlp==0.6.2
-onnx
-tf2onnx
+jax~=0.4.20
+torch~=2.1.0
