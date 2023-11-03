@@ -8,12 +8,6 @@ projects:
         origin: "https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git"
       checkoutFrom:
         revision: main
-  - name: demo-ocp-gpu
-    git:
-      remotes:
-        origin: "https://github.com/redhat-na-ssa/demo-ocp-gpu.git"
-      checkoutFrom:
-        revision: v0.92
 components:
   - container:
       # image: image-registry.openshift-image-registry.svc:5000/registry/udi-cuda:latest
