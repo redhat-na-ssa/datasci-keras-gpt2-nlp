@@ -32,31 +32,39 @@ Cluster admin privs
 
 ```
 # oc login to your cluster
-$ git clone https://github.com/redhat-na-ssa/demo-ai-gitops-catalog.git
-$ bash
-$ source scripts/functions.sh 
-$ apply_firmly clusters/default/
-$ git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
-$ cd demo-ocp-gpt2-keras-nlp
-$ ./scripts/bootstrap.sh
+oc whoami
+
+git clone https://github.com/redhat-na-ssa/demo-ai-gitops-catalog.git
+cd demo-ai-gitops-catalog
+
+bash
+. scripts/functions.sh 
+apply_firmly clusters/default/
+
+git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
+cd demo-ocp-gpt2-keras-nlp
+./scripts/bootstrap.sh
 ```
 
 ## From the OCP Web Console in the Web Terminal
 
 go to your console and launch the web terminal (from the web terminal operator)
+
 ```
-$ cd gitops
-$ source scripts/functions.sh 
-$ get_functions
-$ ./scripts/bootstrap.sh
-$ apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
-$ apply_firmly components/configs/kustomized/minio
+cd gitops
+source scripts/functions.sh
+
+get_functions
+./scripts/bootstrap.sh
+
+apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
+apply_firmly components/configs/kustomized/minio
 ```
 
 ## Installation Verification
 
-Something to checkout
-1. from the waffle menu check the argocd UI
+Something to checkout:
+
 1. monitor the progress from the OCP Administrator console
 1. events
 1. installed operators
