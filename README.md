@@ -18,69 +18,52 @@ Key concepts:
 - NVIDIA GPU Monitoring
 - Online experimentation
 
+## Installation
 
-# Installation
+### Prerequisites
 
-## Prerequisites
+- [x] Red Hat OpenShift Cluster 4.10+
+- [x] Cluster admin permissions
 
-```bash
-OCP 4 Cluster
-Cluster admin privs
+The following cli tools are required:
+
+- `bash`, `git`
+- `oc` - Download [mac](https://formulae.brew.sh/formula/openshift-cli), [linux](https://mirror.openshift.com/pub/openshift-v4/clients/ocp), [windows](https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-windows.zip)
+- `kubectl` (optional) - Included in `oc` bundle
+- `kustomize` (optional) - Download [mac](https://formulae.brew.sh/formula/kustomize), [linux](https://github.com/kubernetes-sigs/kustomize/releases)
+
+NOTE: `bash`, `git`, and `oc` are available in the [OpenShift Web Terminal](https://docs.openshift.com/container-platform/4.12/web_console/web_terminal/installing-web-terminal.html)
+
+### From your terminal
+
 ```
+# start a bash shell (this means you mac users)
+bash
 
-## From your terminal
-
-```
 # oc login to your cluster
 oc whoami
 
-git clone https://github.com/redhat-na-ssa/demo-ai-gitops-catalog.git
-cd demo-ai-gitops-catalog
-
-bash
-. scripts/functions.sh 
-apply_firmly clusters/default/
-
+# git clone demo
 git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
 cd demo-ocp-gpt2-keras-nlp
+
+# run setup script
 ./scripts/bootstrap.sh
 ```
 
-## From the OCP Web Console in the Web Terminal
-
-go to your console and launch the web terminal (from the web terminal operator)
+### Uninstall
 
 ```
-cd gitops
-source scripts/functions.sh
-
-get_functions
-./scripts/bootstrap.sh
-
-apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
-apply_firmly components/configs/kustomized/minio
+# WARNING: Be certain you want your cluster returned to a vanilla state
+. ./scripts/bootstrap.sh
+delete_demo
 ```
 
-## Installation Verification
+## Quickstart
 
-Something to checkout:
-
-1. monitor the progress from the OCP Administrator console
-1. events
-1. installed operators
-1. machinesets
-1. nodes
-1. from waffle menu > click on DevSpaces 
-1. go to project 'minio'
-1. go to routes and click on the 'minio-console' route
-1. go to secrets and click on the 'minio-root-user' and reveal the values for the u/pass
-1. check for a bucket call 'models'
-
-# Quickstart
-
-## Launch DevSpaces (from the `demo-ocp-gpt2-keras-nlp` repo)
-
-- Launch the [science/notebooks](science/notebooks)
+- Launch DevSpaces from the `https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git` repo
+- Open the [science/notebooks](science/notebooks) folder
+- Run the [notebooks](science/notebooks/) in order
 
 ## Additional Resources
 
