@@ -66,6 +66,7 @@ delete_demo
 
 - `Create & Open` DevSpaces with the current repo
   - NOTE: This may take 12+ mins
+  - Click the `Events` submenu to watch progress
 
 ![DevSpaces Example](docs/devspaces-1.png)
 
