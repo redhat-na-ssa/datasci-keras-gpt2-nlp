@@ -36,6 +36,9 @@ $ git clone https://github.com/redhat-na-ssa/demo-ai-gitops-catalog.git
 $ bash
 $ source scripts/functions.sh 
 $ apply_firmly clusters/default/
+$ git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
+$ cd demo-ocp-gpt2-keras-nlp
+$ ./scripts/bootstrap.sh
 ```
 
 ## From the OCP Web Console in the Web Terminal
@@ -43,8 +46,9 @@ $ apply_firmly clusters/default/
 go to your console and launch the web terminal (from the web terminal operator)
 ```
 $ cd gitops
-$ run get_functions
-$ run scripts/bootstrap
+$ source scripts/functions.sh 
+$ get_functions
+$ ./scripts/bootstrap.sh
 $ apply_firmly demos/devspaces-nvidia-gpu-autoscale/ 
 $ apply_firmly components/configs/kustomized/minio
 ```
