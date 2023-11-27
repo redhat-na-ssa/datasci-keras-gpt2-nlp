@@ -44,13 +44,13 @@ is_sourced() {
 ################# misc fucntions ################
 
 ocp_check_login(){
+  oc whoami || return 1
   oc cluster-info | head -n1
-  oc whoami || exit 1
   echo
 }
 
 ocp_check_info(){
-  ocp_check_login
+  ocp_check_login || return 1
 
   echo "NAMESPACE: $(oc project -q)"
   sleep "${SLEEP_SECONDS:-8}"
@@ -98,19 +98,21 @@ check_cluster_version(){
 
 
 usage(){
-echo "
-You can run individual functions!
+  check_shell
 
-example:
-  setup_demo
-  delete_demo
-"
+  echo "
+  You can run individual functions!
+
+  example:
+    setup_demo
+    delete_demo
+  "
 }
 
 setup_demo(){
+  ocp_check_login
   check_cluster_version
   apply_firmly prereqs
-  usage
 }
 
 delete_demo(){
@@ -125,8 +127,4 @@ delete_demo(){
   oc delete --wait -k prereqs/00-operators
 }
 
-is_sourced && check_shell && return
-
-ocp_check_login
-
-setup_demo
+is_sourced && usage || setup_demo
