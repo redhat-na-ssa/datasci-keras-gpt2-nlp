@@ -61,7 +61,9 @@ delete_demo
 
 ## Quickstart
 
-- Launch DevSpaces from the `https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git` repo
+![DevSpaces Example](docs/devspaces.png)
+
+- `Create & Open` DevSpaces with the `https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git` repo
 - Open the [science/notebooks](science/notebooks) folder
 - Run the [notebooks](science/notebooks/) in order
 

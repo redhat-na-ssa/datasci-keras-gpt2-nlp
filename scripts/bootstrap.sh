@@ -112,6 +112,7 @@ usage(){
 setup_demo(){
   ocp_check_login
   check_cluster_version
+  # apply_firmly prereqs/cluster-default
   apply_firmly prereqs
 }
 

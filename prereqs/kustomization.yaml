@@ -6,4 +6,4 @@ resources:
   # - 01-operator-configs
   # - 02-autoscale
   # - 03-namespaces
-  - apply_firmly
+  - demo-devspaces-nvidia-gpu-autoscale
