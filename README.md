@@ -34,10 +34,11 @@ The following cli tools are required:
 
 NOTE: `bash`, `git`, and `oc` are available in the [OpenShift Web Terminal](https://docs.openshift.com/container-platform/4.12/web_console/web_terminal/installing-web-terminal.html)
 
-### From your terminal
+### From a terminal
 
 ```
-# start a bash shell (this means you mac users)
+# start a bash shell
+# (this means you mac users; zsh)
 bash
 
 # oc login to your cluster
@@ -61,9 +62,13 @@ delete_demo
 
 ## Quickstart
 
-![DevSpaces Example](docs/devspaces.png)
+![DevSpaces Example](docs/devspaces-0.png)
 
-- `Create & Open` DevSpaces with the `https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git` repo
+- `Create & Open` DevSpaces with the current repo
+  - NOTE: This may take 12+ mins
+
+![DevSpaces Example](docs/devspaces-1.png)
+
 - Open the [science/notebooks](science/notebooks) folder
 - Run the [notebooks](science/notebooks/) in order
 
