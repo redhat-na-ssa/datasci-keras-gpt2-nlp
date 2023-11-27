@@ -62,15 +62,19 @@ delete_demo
 
 ## Quickstart
 
+- `Create & Open` DevSpaces with the current repo
+
 ![DevSpaces Example](docs/devspaces-0.png)
 
-- `Create & Open` DevSpaces with the current repo
-  - NOTE: This may take 12+ mins
-  - Click the `Events` submenu to watch progress
+- Click the `Events` submenu to watch progress
+- NOTE: This may take 12+ mins
 
 ![DevSpaces Example](docs/devspaces-1.png)
 
 - Open the [science/notebooks](science/notebooks) folder
+
+![DevSpaces Example](docs/devspaces-2.png)
+
 - Run the [notebooks](science/notebooks/) in order
 
 ## Additional Resources
