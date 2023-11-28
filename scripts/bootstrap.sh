@@ -96,7 +96,6 @@ check_cluster_version(){
 
 ################ demo functions ################
 
-
 usage(){
   check_shell
 
@@ -106,6 +105,8 @@ usage(){
   example:
     setup_demo
     delete_demo
+
+    setup_rhods
   "
 }
 
@@ -130,6 +131,11 @@ delete_demo(){
   oc delete --wait -k prereqs/01-operator-configs
   oc delete --wait -k prereqs/00-operators
   oc delete --wait -k prereqs
+}
+
+setup_rhods(){
+  ocp_check_login
+  apply_firmly prereqs/demo-rhods-nvidia-gpu-autoscale
 }
 
 is_sourced && usage || setup_demo
