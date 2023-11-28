@@ -119,11 +119,12 @@ setup_demo(){
 delete_demo(){
   echo "WARNING: This will remove operators and other compoents!"
   echo "WARNING: Manually clean up on a cluster that is not a default install"
-  echo "Hit <CTRL> + c to abort"
+  echo "Hit <CTRL> + C to abort"
   sleep "${SLEEP_SECONDS:-8}"
 
   # oc delete --wait -k prereqs/03-namespaces
   oc delete --wait --all checluster -A
+  oc delete --wait -l operators.coreos.com/devspaces.openshift-operators csv -A
   oc delete --wait -k prereqs/02-autoscale
   oc delete --wait -k prereqs/01-operator-configs
   oc delete --wait -k prereqs/00-operators
