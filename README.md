@@ -1,10 +1,12 @@
 # GPT2 Text Generation w/ KerasNLP on OpenShift
 
 This repo demos the use of the [GPT2 Text Generation w/ KerasNLP](https://keras.io/examples/generative/gpt2_text_generation_with_kerasnlp/)
-on Red Hat OpenShift with NVIDIA GPUs. 
+on Red Hat OpenShift with NVIDIA GPUs.
 
 > [!IMPORTANT]
-> This demo is done entirely in-memory of the pod to keep it lightweight. In production, Large Language Models (LLMs) need additional components, like a vector database and embedding model, to store data outside of pod memory and fine-tune the model on custom data.
+> This demo is done entirely in-memory, of a pod, to keep it simple.
+>
+>In production use cases, Large Language Models (LLMs) need additional components, like a vector database and embedding model, to store data and fine-tune the model on custom data.
 
 ![GPT2 Text Generation Concept Diagram](<science/docs/GPT2 Text Generation with KerasNLP.png>)
 
@@ -71,7 +73,9 @@ delete_demo
 ```
 
 ## Quickstart
+
 - Launch DevSpaces from the waffle menu on the OCP Web Console
+
 > [!NOTE]
 > This may take 5+ mins post bootstrap setup
 
@@ -82,6 +86,7 @@ delete_demo
 ![DevSpaces Example](docs/devspaces-0.png)
 
 - Click the `Events` submenu to watch progress
+
 > [!NOTE]
 > This may take 12+ mins
 
