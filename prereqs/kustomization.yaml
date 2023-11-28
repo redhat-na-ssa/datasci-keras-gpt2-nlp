@@ -4,6 +4,14 @@ kind: Kustomization
 resources:
   # - 00-operators
   # - 01-operator-configs
-  # - 02-autoscale
-  - 03-namespaces
+  - 02-components
   - demo-devspaces-nvidia-gpu-autoscale
+
+patches:
+  - target:
+      kind: ConsoleNotification
+      name: banner-demo
+    patch: |-
+      - op: replace
+        path: /spec/text
+        value: 'DEMO: GPT2 Keras NLP on OpenShift w/ GPUs'

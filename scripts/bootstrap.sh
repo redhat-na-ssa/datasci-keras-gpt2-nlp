@@ -126,8 +126,7 @@ delete_demo(){
   # oc delete --wait -k prereqs/03-namespaces
   oc delete --wait --all checluster -A
   oc delete --wait -l operators.coreos.com/devspaces.openshift-operators csv -A
-  oc delete --wait -k prereqs/03-namespaces
-  oc delete --wait -k prereqs/02-autoscale
+  oc delete --wait -k prereqs/02-demo-configs
   oc delete --wait -k prereqs/01-operator-configs
   oc delete --wait -k prereqs/00-operators
   oc delete --wait -k prereqs
