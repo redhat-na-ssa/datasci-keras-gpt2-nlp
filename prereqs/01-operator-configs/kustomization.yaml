@@ -3,5 +3,5 @@ kind: Kustomization
 
 resources:
   - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/devspaces/instance/overlays/timeout-12m?ref=v0.02
-  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/gpu-operator-certified/instance/overlays/time-slicing-2?ref=v0.02
+  - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/gpu-operator-certified/instance/overlays/aws-time-sliced-2?ref=v0.02
   - https://github.com/codekow/demo-ai-gitops-catalog/components/operators/nfd/instance/overlays/only-nvidia?ref=v0.02

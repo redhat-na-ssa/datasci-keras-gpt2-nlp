@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2015,SC1091,SC2119,SC2120
-set -e
+# set -e
 
 ################# standard init #################
 
@@ -118,14 +118,16 @@ setup_demo(){
 
 delete_demo(){
   echo "WARNING: This will remove operators and other compoents!"
-  echo "WARNING: Manually clean up on a cluster that is not a vanillia install"
+  echo "WARNING: Manually clean up on a cluster that is not a default install"
   echo "Hit <CTRL> + c to abort"
   sleep "${SLEEP_SECONDS:-8}"
 
-  oc delete --wait -k prereqs/03-namespaces
+  # oc delete --wait -k prereqs/03-namespaces
+  oc delete --wait --all checluster -A
   oc delete --wait -k prereqs/02-autoscale
   oc delete --wait -k prereqs/01-operator-configs
   oc delete --wait -k prereqs/00-operators
+  oc delete --wait -k prereqs
 }
 
 is_sourced && usage || setup_demo
