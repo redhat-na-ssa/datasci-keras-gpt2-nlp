@@ -5,5 +5,5 @@ resources:
   # - 00-operators
   # - 01-operator-configs
   # - 02-autoscale
-  # - 03-namespaces
+  - 03-namespaces
   - demo-devspaces-nvidia-gpu-autoscale
