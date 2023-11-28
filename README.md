@@ -69,6 +69,7 @@ delete_demo
 
 ## Quickstart
 - Launch DevSpaces from the waffle menu on the OCP Web Console
+- NOTE: This may take 5+ mins post bootstrap setup
 
 ![DevSpaces Waffle](docs/devspaces-waffle-0.png)
 
