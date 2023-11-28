@@ -68,6 +68,8 @@ delete_demo
 ```
 
 ## Quickstart
+- Launch DevSpaces from the waffle menu on the OCP Web Console
+![DevSpaces Waffle](docs/devspaces-waffle-0.png)
 
 - `Create & Open` DevSpaces with the current repo
 
