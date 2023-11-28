@@ -42,6 +42,7 @@ NOTE: `bash`, `git`, and `oc` are available in the [OpenShift Web Terminal](http
 bash
 
 # oc login to your cluster
+# oc login --token=<yours> --server=https://<yours>
 oc whoami
 
 # git clone demo
@@ -50,6 +51,12 @@ cd demo-ocp-gpt2-keras-nlp
 
 # run setup script
 ./scripts/bootstrap.sh
+
+# expected results
+  # Running: oc apply -k prereqs
+  # again...
+  # again...
+  # [OK]
 ```
 
 ### Uninstall
