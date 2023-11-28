@@ -14,4 +14,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/text
-        value: 'DEMO: GPT2 Keras NLP on OpenShift w/ GPUs'
+        value: 'DEMO: Keras GPT2 NLP on OpenShift w/ GPUs'
