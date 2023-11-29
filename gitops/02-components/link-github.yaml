@@ -1,7 +1,7 @@
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
-  name: github-catalog
+  name: github-keras-gpt2-nlp
 spec:
   href: 'https://github.com/redhat-na-ssa/datasci-keras-gpt2-nlp'
   location: ApplicationMenu
