@@ -79,22 +79,22 @@ delete_demo
 > [!NOTE]
 > This may take 5+ mins post bootstrap setup
 
-![DevSpaces Waffle](docs/devspaces-waffle-0.png)
+![DevSpaces Waffle](docs/images/devspaces-waffle-0.png)
 
 - `Create & Open` DevSpaces with the current repo
 
-![DevSpaces Example](docs/devspaces-0.png)
+![DevSpaces Example](docs/images/devspaces-0.png)
 
 - Click the `Events` submenu to watch progress
 
 > [!NOTE]
 > This may take 12+ mins
 
-![DevSpaces Example](docs/devspaces-1.png)
+![DevSpaces Example](docs/images/devspaces-1.png)
 
 - Open the [science/notebooks](science/notebooks) folder
 
-![DevSpaces Example](docs/devspaces-2.png)
+![DevSpaces Example](docs/images/devspaces-2.png)
 
 - Run the [notebooks](science/notebooks/) in order
 
