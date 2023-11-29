@@ -58,7 +58,7 @@ cd demo-ocp-gpt2-keras-nlp
 ./scripts/bootstrap.sh
 
 # expected results
-  # Running: oc apply -k prereqs
+  # Running: oc apply -k gitops
   # again...
   # again...
   # [OK]
