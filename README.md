@@ -51,8 +51,8 @@ bash
 oc whoami
 
 # git clone demo
-git clone https://github.com/redhat-na-ssa/demo-ocp-gpt2-keras-nlp.git
-cd demo-ocp-gpt2-keras-nlp
+git clone https://github.com/redhat-na-ssa/datasci-keras-gpt2-nlp.git
+cd datasci-keras-gpt2-nlp
 
 # run setup script
 ./scripts/bootstrap.sh
@@ -100,7 +100,6 @@ delete_demo
 
 ## Additional Resources
 
-- [Data Science Example - Fingerprint Prediction](https://github.com/redhat-na-ssa/datasci-fingerprint)
 - [OpenShift Dev Spaces - Overview](https://developers.redhat.com/products/openshift-dev-spaces/overview)
 - [OpenShift Dev Spaces - Getting Started](https://developers.redhat.com/products/openshift-dev-spaces/getting-started)
 - [OpenShift Dev Spaces - Video Overview (20m)](https://youtu.be/Jfd0F0-uYfU)
