@@ -113,8 +113,8 @@ usage(){
 setup_demo(){
   ocp_check_login
   check_cluster_version
-  # apply_firmly prereqs/cluster-default
-  apply_firmly prereqs
+  # apply_firmly gitops/cluster-default
+  apply_firmly gitops
 }
 
 delete_demo(){
@@ -123,18 +123,18 @@ delete_demo(){
   echo "Hit <CTRL> + C to abort"
   sleep "${SLEEP_SECONDS:-8}"
 
-  # oc delete --wait -k prereqs/03-namespaces
+  # oc delete --wait -k gitops/03-namespaces
   oc delete --wait --all checluster -A
   oc delete --wait -l operators.coreos.com/devspaces.openshift-operators csv -A
-  oc delete --wait -k prereqs/02-demo-configs
-  oc delete --wait -k prereqs/01-operator-configs
-  oc delete --wait -k prereqs/00-operators
-  oc delete --wait -k prereqs
+  oc delete --wait -k gitops/02-demo-configs
+  oc delete --wait -k gitops/01-operator-configs
+  oc delete --wait -k gitops/00-operators
+  oc delete --wait -k gitops
 }
 
 setup_rhods(){
   ocp_check_login
-  apply_firmly prereqs/demo-rhods-nvidia-gpu-autoscale
+  apply_firmly gitops/demo-rhods-nvidia-gpu-autoscale
 }
 
 is_sourced && usage || setup_demo
