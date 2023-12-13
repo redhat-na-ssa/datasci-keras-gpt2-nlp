@@ -19,7 +19,7 @@ components:
         resources:
           limits:
             memory: 48Gi # you can edit this live
-            nvidia.com/gpu: '1'
+            nvidia.com/gpu: '0'
       controller.devfile.io/merge-contribution: true
       # memoryLimit: 16Gi
       # cpuLimit: 1000m
